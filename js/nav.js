@@ -5,6 +5,7 @@
  */
 
 /** Show main list of all stories when click site name */
+let storyFormToggle = false;
 
 function navAllStories(evt) {
   console.debug("navAllStories", evt);
@@ -36,7 +37,13 @@ function updateNavOnLogin() {
 }
 
 function showStoryForm() {
-  $storyForm.show();
+  if (!storyFormToggle) {
+    $storyForm.show();
+    storyFormToggle = true;
+  } else {
+    $storyForm.hide();
+    storyFormToggle = false;
+  }
 }
 
 $navSubmitStory.on('click', showStoryForm);

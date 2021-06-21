@@ -2,6 +2,7 @@
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
+let liCount = 0
 
 /** Get and show stories when site first loads. */
 
@@ -23,6 +24,7 @@ function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
+  liCount++
   return $(`
       <li id="${story.storyId}">
         <a href="${story.url}" target="a_blank" class="story-link">
@@ -30,6 +32,7 @@ function generateStoryMarkup(story) {
         </a>
         <small class="story-hostname">(${hostName})</small>
         <small class="story-author">by ${story.author}</small>
+        <input type="checkbox" id="${liCount}">
         <small class="story-user">posted by ${story.username}</small>
       </li>
     `);
@@ -61,6 +64,9 @@ async function addStoryOnFormSubmission(evt) {
   };
   let newStory = new StoryList([]);
   await newStory.addStory(currentUser, storyObject);
+  let story = (await StoryList.getStories()).stories[0];
+  story = generateStoryMarkup(story);
+  $allStoriesList.prepend(story);
 };
 
 $storyForm.on('submit', addStoryOnFormSubmission)

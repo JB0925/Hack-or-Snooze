@@ -1,6 +1,7 @@
 "use strict";
 
 const BASE_URL = "https://hack-or-snooze-v3.herokuapp.com";
+let index = 0;
 
 /******************************************************************************
  * Story: a single story in the system
@@ -211,5 +212,27 @@ class User {
       console.error("loginViaStoredCredentials failed", err);
       return null;
     }
+  }
+  
+  async addOrRemoveFavoriteStory() {
+    $('#all-stories-list').on('click', async (evt) => {
+      const checkboxId = evt.target.id;
+      const checkbox = $(`#${checkboxId}`).eq(0);
+      const id = evt.target.parentElement.id;
+      const allStories = await StoryList.getStories();
+      for (let story of allStories.stories) {
+        if (story.storyId === id) {
+          if (checkbox[0].checked === true) {
+            this.favorites.push(story);
+            sessionStorage.setItem('favoriteStories', JSON.stringify(this.favorites));
+            console.log(this.favorites)
+          } else {
+            this.favorites = this.favorites.filter(item => item.storyId !== id);
+            sessionStorage.setItem('favoriteStories', JSON.stringify(this.favorites));
+            console.log(this.favorites)
+          }
+        }
+      }
+    })
   }
 }
