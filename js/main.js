@@ -13,6 +13,11 @@ const $signupForm = $("#signup-form");
 const $navLogin = $("#nav-login");
 const $navUserProfile = $("#nav-user-profile");
 const $navLogOut = $("#nav-logout");
+const $navSubmitStory = $('#nav-submit-story');
+const $submitStoryTitle = $('#story-title');
+const $submitStoryAuthor = $('#story-author');
+const $submitStoryUrl = $('#story-url');
+const $storyForm = $('#story-form');
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After

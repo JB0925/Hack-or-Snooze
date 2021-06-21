@@ -24,10 +24,13 @@ class Story {
   /** Parses hostname out of URL and returns it. */
 
   getHostName() {
-    // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
-  }
-}
+    let parsedUrl = this.url.split('://')[1].split('/')[0];
+    if (parsedUrl.includes('www.')) {
+      parsedUrl = parsedUrl.split('www.')[1];
+    }
+    return parsedUrl;
+  };
+};
 
 
 /******************************************************************************
@@ -73,10 +76,26 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory( /* user, newStory */) {
-    // UNIMPLEMENTED: complete this function!
-  }
-}
+  async addStory(user, newStory) {
+    const {title, author, url} = newStory;
+    const storyToAdd = new Story(newStory);
+    this.stories.push(storyToAdd);
+    try {
+      await axios.post(`${BASE_URL}/stories`, {
+        token: user.loginToken,
+        story: {
+          author,
+          title,
+          url
+        }
+      });
+      return this.stories[0];
+    } catch(err) {
+      alert('Sorry, login credentials could not be verified.')
+      return null;
+    }
+  };
+};
 
 
 /******************************************************************************
