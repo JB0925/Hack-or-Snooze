@@ -18,6 +18,8 @@ const $submitStoryTitle = $('#story-title');
 const $submitStoryAuthor = $('#story-author');
 const $submitStoryUrl = $('#story-url');
 const $storyForm = $('#story-form');
+const $deleteForm = $('#delete-form');
+const $navDeleteStory = $('#nav-delete-story');
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After

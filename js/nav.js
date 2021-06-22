@@ -6,6 +6,7 @@
 
 /** Show main list of all stories when click site name */
 let storyFormToggle = false;
+let deleteStoryToggle = false;
 
 function navAllStories(evt) {
   console.debug("navAllStories", evt);
@@ -36,7 +37,7 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
-function showStoryForm() {
+function showAddStoryForm() {
   if (!storyFormToggle) {
     $storyForm.show();
     storyFormToggle = true;
@@ -46,4 +47,15 @@ function showStoryForm() {
   }
 }
 
-$navSubmitStory.on('click', showStoryForm);
+function showDeleteStoryForm() {
+  if (!deleteStoryToggle) {
+    $deleteForm.show();
+    deleteStoryToggle = true;
+  } else {
+    $deleteForm.hide();
+    deleteStoryToggle = false;
+  };
+};
+
+$navSubmitStory.on('click', showAddStoryForm);
+$navDeleteStory.on('click', showDeleteStoryForm)

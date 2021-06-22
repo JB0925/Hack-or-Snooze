@@ -20,7 +20,10 @@ async function login(evt) {
   // which we'll make the globally-available, logged-in user.
   currentUser = await User.login(username, password);
   currentUser.addOrRemoveFavoriteStory();
+  currentUser.markAndLoadFavoritesOnPageLoad();
   $loginForm.trigger("reset");
+  $('#nav-submit-story').show();
+  $('#nav-delete-story').show();
 
   saveUserCredentialsInLocalStorage();
   updateUIOnUserLogin();
@@ -42,6 +45,7 @@ async function signup(evt) {
   // which we'll make the globally-available, logged-in user.
   currentUser = await User.signup(username, password, name);
   currentUser.addOrRemoveFavoriteStory();
+  currentUser.markAndLoadFavoritesOnPageLoad();
   saveUserCredentialsInLocalStorage();
   updateUIOnUserLogin();
   $signupForm.trigger("reset");
@@ -79,6 +83,9 @@ async function checkForRememberedUser() {
   // try to log in with these credentials (will be null if login failed)
   currentUser = await User.loginViaStoredCredentials(token, username);
   currentUser.addOrRemoveFavoriteStory();
+  currentUser.markAndLoadFavoritesOnPageLoad();
+  $('#nav-submit-story').show();
+  $('#nav-delete-story').show();
 }
 
 /** Sync current user information to localStorage.

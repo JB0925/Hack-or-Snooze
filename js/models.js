@@ -1,8 +1,6 @@
 "use strict";
 
 const BASE_URL = "https://hack-or-snooze-v3.herokuapp.com";
-let index = 0;
-
 /******************************************************************************
  * Story: a single story in the system
  */
@@ -225,14 +223,27 @@ class User {
           if (checkbox[0].checked === true) {
             this.favorites.push(story);
             sessionStorage.setItem('favoriteStories', JSON.stringify(this.favorites));
-            console.log(this.favorites)
           } else {
             this.favorites = this.favorites.filter(item => item.storyId !== id);
             sessionStorage.setItem('favoriteStories', JSON.stringify(this.favorites));
-            console.log(this.favorites)
           }
         }
       }
     })
   }
+
+  markAndLoadFavoritesOnPageLoad() {
+    setTimeout(() => {
+      const favoritedStories = JSON.parse(sessionStorage.getItem('favoriteStories'));
+      for (let story of favoritedStories) {
+        try {
+          const associatedCheckbox = $(`#button${story.storyId}`);
+          associatedCheckbox[0].checked = true;
+          this.favorites.push(story);
+        } catch(err) {
+          console.log(err);
+        };
+      };
+    },100);
+  };
 }
