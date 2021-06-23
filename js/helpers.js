@@ -36,17 +36,7 @@ if (itemTitle.val() === story.title) {
 };
 
 function clearStorySubmissionInputs(input1, input2, input3) {
-    input1.val('');
-    input2.val('');
-    input3.val('');
+    input1.value = '';
+    input2.value = '';
+    input3.value = '';
 };
-
-function showAddOrDeleteStoryForm(toggle, form) {
-    if (!toggle) {
-        form.show();
-        toggle = true;
-      } else {
-        form.hide();
-        toggle = false;
-    }
-}

@@ -58,9 +58,9 @@ function putStoriesOnPage() {
 async function addStoryOnFormSubmission(evt) {
   evt.preventDefault();
   let storyObject = {
-    title: $submitStoryTitle.val(),
-    author: $submitStoryAuthor.val(),
-    url: $submitStoryUrl.val()
+    title: $submitStoryTitle.value,
+    author: $submitStoryAuthor.value,
+    url: $submitStoryUrl.value
   };
   
   await storyList.addStory(currentUser, storyObject);
@@ -79,7 +79,7 @@ function seeListOfFavoriteStories(evt) {
     setTimeout(() => {
       let checkboxToRemove = $(`#userStories input[type="checkbox"]`);
       checkboxToRemove.remove();
-    },10)
+    },10);
     $userStoriesList.append($favorite);
   };
   $userStoriesDiv.show();
