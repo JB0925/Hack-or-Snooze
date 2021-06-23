@@ -37,6 +37,10 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
+// showAddStoryForm and showDeleteStoryForm are used to toggle the display of the
+// add and delete story forms when "submit" and "delete" are clicked in the navbar.
+// I tried to make this one function since it's essentially the same thing, but 
+// could not figure out how to add parameters to the event listeners below.
 function showAddStoryForm() {
   if (!storyFormToggle) {
     $storyForm.show();
@@ -49,15 +53,14 @@ function showAddStoryForm() {
 
 function showDeleteStoryForm() {
   if (!deleteStoryToggle) {
-    // $('#delete-container').show();
     $deleteForm.show();
     deleteStoryToggle = true;
   } else {
-    // $('#delete-container').hide();
     $deleteForm.hide();
     deleteStoryToggle = false;
   };
 };
 
+// event listeners used to control the "submit" and "delete" options in the navbar
 $navSubmitStory.on('click', showAddStoryForm);
 $navDeleteStory.on('click', showDeleteStoryForm);

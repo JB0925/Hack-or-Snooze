@@ -55,6 +55,8 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
+// adds a story to the DOM and the API 
+// when the submit form is sucessfully submitted
 async function addStoryOnFormSubmission(evt) {
   evt.preventDefault();
   let storyObject = {
@@ -62,13 +64,16 @@ async function addStoryOnFormSubmission(evt) {
     author: $submitStoryAuthor.val(),
     url: $submitStoryUrl.val()
   };
-  console.log(storyObject.url)
+
   await storyList.addStory(currentUser, storyObject);
   let story = generateStoryMarkup((await StoryList.getStories()).stories[0]);
   $allStoriesList.prepend(story);
   clearStorySubmissionInputs($submitStoryAuthor, $submitStoryUrl, $submitStoryTitle);
 };
 
+// allows the user to see a list of their favorite stories
+// removes unnecessary checkboxes from list of favorites
+// and shows the favorite stories div/ol.
 function seeListOfFavoriteStories(evt) {
   evt.preventDefault();
   $userStoriesList.html('');
@@ -85,6 +90,7 @@ function seeListOfFavoriteStories(evt) {
   $userStoriesDiv.show();
 };
 
+// deletes a story from the DOM, API, and, if applicable, currentUser.favorites
 async function deleteAStory(evt) {
   evt.preventDefault();
   let $titleToDelete = $('#delete-title');
@@ -96,6 +102,8 @@ async function deleteAStory(evt) {
   $titleToDelete.val('');
 }
 
+// event listeners to handle what happens when the submit, delete, 
+// and "see favorites" buttons are clicked
 $storyForm.on('submit', addStoryOnFormSubmission)
 $seeFavoritesList.on('click', seeListOfFavoriteStories)
 $deleteForm.on('submit', deleteAStory)

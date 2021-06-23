@@ -7,6 +7,8 @@ let currentUser;
  */
 
 /** Handle login form submission. If login ok, sets up the user instance */
+// some methods from models.js were added here to enable appropriate functionality
+// on page loads.
 
 async function login(evt) {
   console.debug("login", evt);
