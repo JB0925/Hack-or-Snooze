@@ -62,14 +62,11 @@ async function addStoryOnFormSubmission(evt) {
     author: $submitStoryAuthor.val(),
     url: $submitStoryUrl.val()
   };
-  let newStory = new StoryList([]);
-  await newStory.addStory(currentUser, storyObject);
-  let story = (await StoryList.getStories()).stories[0];
-  story = generateStoryMarkup(story);
+  
+  await storyList.addStory(currentUser, storyObject);
+  let story = generateStoryMarkup((await StoryList.getStories()).stories[0]);
   $allStoriesList.prepend(story);
-  $submitStoryAuthor.val('');
-  $submitStoryUrl.val('');
-  $submitStoryTitle.val('');
+  clearStorySubmissionInputs($submitStoryAuthor, $submitStoryUrl, $submitStoryTitle);
 };
 
 function seeListOfFavoriteStories(evt) {
@@ -84,38 +81,18 @@ function seeListOfFavoriteStories(evt) {
       checkboxToRemove.remove();
     },10)
     $userStoriesList.append($favorite);
-  }
+  };
   $userStoriesDiv.show();
-}
-
-function removeFromFavorites(user, id) {
-  for (let story of user.favorites) {
-    if (story.storyId === id) {
-      user.favorites = user.favorites.filter(item => item.storyId !== id);
-      sessionStorage.setItem('favoriteStories', JSON.stringify(user.favorites));
-    }
-  }
-} 
+};
 
 async function deleteAStory(evt) {
   evt.preventDefault();
   let $titleToDelete = $('#delete-title');
   const allStories = await StoryList.getStories();
+
   for (let story of allStories.stories) {
-    if ($titleToDelete.val() === story.title) {
-      let liToRemove = $(`#${story.storyId}`);
-      liToRemove.remove();
-      
-      try {
-        await axios.delete(`${BASE_URL}/stories/${story.storyId}`,
-        {params: {token: currentUser.loginToken}});
-      } catch(err) {
-        alert('Either no title could be matche, or invalid token.');
-        return null;
-      }
-      removeFromFavorites(currentUser, story.storyId);
-    }
-  }
+    await checkIfStoryShouldBeDeleted($titleToDelete, story, currentUser);
+  };
   $titleToDelete.val('');
 }
 

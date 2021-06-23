@@ -58,4 +58,4 @@ function showDeleteStoryForm() {
 };
 
 $navSubmitStory.on('click', showAddStoryForm);
-$navDeleteStory.on('click', showDeleteStoryForm)
+$navDeleteStory.on('click', showDeleteStoryForm);

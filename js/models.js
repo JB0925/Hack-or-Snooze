@@ -214,28 +214,34 @@ class User {
   
   async addOrRemoveFavoriteStory() {
     $('#all-stories-list').on('click', async (evt) => {
-      const checkboxId = evt.target.id;
-      const checkbox = $(`#${checkboxId}`).eq(0);
-      const id = evt.target.parentElement.id;
+      const {checkboxId, checkbox, parentId} = setupAddOrRemoveFavorites(evt);
       const allStories = await StoryList.getStories();
+
       for (let story of allStories.stories) {
-        if (story.storyId === id) {
-          if (checkbox[0].checked === true) {
-            this.favorites.push(story);
-            sessionStorage.setItem('favoriteStories', JSON.stringify(this.favorites));
-          } else {
-            this.favorites = this.favorites.filter(item => item.storyId !== id);
-            sessionStorage.setItem('favoriteStories', JSON.stringify(this.favorites));
-          }
-        }
-      }
-    })
-  }
+        if (story.storyId === parentId) {
+          try {
+            if (checkbox[0].checked === true) {
+              // await axios.post(`${BASE_URL}/users/${currentUser.username}/favorites/${story.storyId}`,
+              // {token: currentUser.loginToken});
+              addToFavorites(this, story);
+            } else {
+              // await axios.delete(`${BASE_URL}/users/${currentUser.username}/favorites/${story.storyId}`,
+              // {params: {token: currentUser.loginToken}})
+              removeFromFavorites(this, parentId);
+            };
+          } catch(err) {
+            console.log(err);
+            alert('The request could not be completed.');
+          };
+        };
+      };
+    });
+  };
 
   markAndLoadFavoritesOnPageLoad() {
     setTimeout(() => {
       const favoritedStories = JSON.parse(sessionStorage.getItem('favoriteStories'));
-      for (let story of favoritedStories) {
+      for (let story of this.favorites) {
         try {
           const associatedCheckbox = $(`#button${story.storyId}`);
           associatedCheckbox[0].checked = true;
