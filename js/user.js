@@ -49,6 +49,8 @@ async function signup(evt) {
   saveUserCredentialsInLocalStorage();
   updateUIOnUserLogin();
   $signupForm.trigger("reset");
+  $('#nav-submit-story').show();
+  $('#nav-delete-story').show();
 }
 
 $signupForm.on("submit", signup);
