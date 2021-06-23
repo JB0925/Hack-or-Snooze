@@ -36,7 +36,7 @@ if (itemTitle.val() === story.title) {
 };
 
 function clearStorySubmissionInputs(input1, input2, input3) {
-    input1.value = '';
-    input2.value = '';
-    input3.value = '';
+    input1.val('');
+    input2.val('');
+    input3.val('');
 };

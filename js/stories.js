@@ -58,11 +58,11 @@ function putStoriesOnPage() {
 async function addStoryOnFormSubmission(evt) {
   evt.preventDefault();
   let storyObject = {
-    title: $submitStoryTitle.value,
-    author: $submitStoryAuthor.value,
-    url: $submitStoryUrl.value
+    title: $submitStoryTitle.val(),
+    author: $submitStoryAuthor.val(),
+    url: $submitStoryUrl.val()
   };
-  
+  console.log(storyObject.url)
   await storyList.addStory(currentUser, storyObject);
   let story = generateStoryMarkup((await StoryList.getStories()).stories[0]);
   $allStoriesList.prepend(story);
