@@ -49,13 +49,15 @@ function showAddStoryForm() {
 
 function showDeleteStoryForm() {
   if (!deleteStoryToggle) {
+    // $('#delete-container').show();
     $deleteForm.show();
     deleteStoryToggle = true;
   } else {
+    // $('#delete-container').hide();
     $deleteForm.hide();
     deleteStoryToggle = false;
   };
 };
 
 $navSubmitStory.on('click', showAddStoryForm);
-$navDeleteStory.on('click', showDeleteStoryForm)
+$navDeleteStory.on('click', showDeleteStoryForm);
