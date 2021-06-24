@@ -5,6 +5,7 @@ let storyList;
 let $seeFavoritesList = $('#user-favorites');
 let $userStoriesDiv = $('#userStories');
 let $userStoriesList = $('#user-stories-list');
+let areFavoritesVisible = false;
 
 /** Get and show stories when site first loads. */
 
@@ -73,19 +74,24 @@ async function addStoryOnFormSubmission(evt) {
 
 // allows the user to see a list of their favorite stories
 // removes unnecessary checkboxes from list of favorites
-// and shows the favorite stories div/ol.
+// and shows the favorite stories div/ol. If favorites are already shown
+// and button is clicked, it hides the favorites list and shows the main stories.
 function seeListOfFavoriteStories(evt) {
   evt.preventDefault();
-  $userStoriesList.html('');
-  for (let favorite of currentUser.favorites) {
-    const $favorite = generateStoryMarkup(favorite);
-    setTimeout(() => {
-      let checkboxToRemove = $(`#userStories input[type="checkbox"]`);
-      checkboxToRemove.remove();
-    },10);
-    $userStoriesList.append($favorite);
+  if (!areFavoritesVisible) {
+    setupToShowFavorites();
+    for (let favorite of currentUser.favorites) {
+      const $favorite = generateStoryMarkup(favorite);
+      setTimeout(() => {
+        let checkboxToRemove = $(`#userStories input[type="checkbox"]`);
+        checkboxToRemove.remove();
+      },10);
+      $userStoriesList.append($favorite);
+    };
+    $userStoriesDiv.show();
+  } else {
+    setupToHideFavorites();
   };
-  $userStoriesDiv.show();
 };
 
 // deletes a story from the DOM and API, if a story with a matching title is found.

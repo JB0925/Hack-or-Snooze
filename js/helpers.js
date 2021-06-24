@@ -44,3 +44,23 @@ function clearStorySubmissionInputs(input1, input2, input3) {
     input2.val('');
     input3.val('');
 };
+
+// setupToShow/HideFavorites are used to change the UI when the "Show Favorites"
+// button is clicked.
+function setupToShowFavorites() {
+    $allStoriesList.hide();
+    $userStoriesList.html('');
+    areFavoritesVisible = true;
+    $('#see-favorites label').text('Hide your favorites.');
+    $('#see-favorites button').text('Hide Favorites');
+    $('#directions').hide();
+};
+
+function setupToHideFavorites() {
+    $('#see-favorites label').text('See your favorites?');
+    $('#see-favorites button').text('See Favorites');
+    $('#directions').show();
+    $userStoriesDiv.hide();
+    $allStoriesList.show();
+    areFavoritesVisible = false;
+}
