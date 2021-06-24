@@ -33,7 +33,7 @@ function generateStoryMarkup(story) {
         </a>
         <small class="story-hostname">(${hostName})</small>
         <small class="story-author">by ${story.author}</small>
-        <input type="checkbox" id="button${story.storyId}">
+        <input type="checkbox"  class="hide-boxes" id="button${story.storyId}">
         <small class="story-user">posted by ${story.username}</small>
       </li>
     `);

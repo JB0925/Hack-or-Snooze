@@ -69,6 +69,19 @@
   margin-left: 4.9rem;
 }
 
+.hide-boxes {
+  visibility: hidden
+}
+
+.show-boxes {
+  visibility: visible;
+}
+
+#directions {
+  text-align: center;
+  background-color: #f6f6ef;
+  visibility: hidden;
+}
 /* Individual stories */
 
 .story-link {

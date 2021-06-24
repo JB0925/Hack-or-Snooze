@@ -126,5 +126,10 @@ function updateUIOnUserLogin() {
   $loginForm.hide();
   $signupForm.hide();
   $seeFavoritesDiv.css('visibility', 'visible');
+  let allCheckBoxes = $('#all-stories-list input');
+  for (let box of allCheckBoxes) {
+    box.className = 'show-boxes';
+  }
+  $('#directions').css('visibility', 'visible');
   updateNavOnLogin();
 }
