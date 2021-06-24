@@ -77,10 +77,8 @@ async function addStoryOnFormSubmission(evt) {
 function seeListOfFavoriteStories(evt) {
   evt.preventDefault();
   $userStoriesList.html('');
-  let userFavorites = JSON.parse(sessionStorage.getItem('favoriteStories'));
-  for (let favorite of userFavorites) {
-    let $favorite = new Story(favorite);
-    $favorite = generateStoryMarkup($favorite);
+  for (let favorite of currentUser.favorites) {
+    const $favorite = generateStoryMarkup(favorite);
     setTimeout(() => {
       let checkboxToRemove = $(`#userStories input[type="checkbox"]`);
       checkboxToRemove.remove();
@@ -90,7 +88,7 @@ function seeListOfFavoriteStories(evt) {
   $userStoriesDiv.show();
 };
 
-// deletes a story from the DOM, API, and, if applicable, currentUser.favorites
+// deletes a story from the DOM and API, if a story with a matching title is found.
 async function deleteAStory(evt) {
   evt.preventDefault();
   let $titleToDelete = $('#delete-title');

@@ -1,4 +1,4 @@
-// returns an object that is destructured; used to declutter code in a function.
+// returns an object that is eventually destructured; used to declutter code in a function.
 const setupAddOrRemoveFavorites = (evt) => {
     const checkboxId = evt.target.id;
     const checkbox = $(`#${checkboxId}`).eq(0);
@@ -8,22 +8,20 @@ const setupAddOrRemoveFavorites = (evt) => {
 
 // again, used to make code more compact in another function. Removes a story
 // from favorites.
-function removeFromFavorites(user, id) {
-    for (let story of user.favorites) {
-      if (story.storyId === id) {
-        user.favorites = user.favorites.filter(item => item.storyId !== id);
-        sessionStorage.setItem('favoriteStories', JSON.stringify(user.favorites));
-      };
-    };
+async function removeFromFavorites(user, story, instance, id) {
+  await axios.delete(`${BASE_URL}/users/${user.username}/favorites/${story.storyId}`,
+  {params: {token: user.loginToken}})
+  instance.favorites = instance.favorites.filter(item => item.storyId !== id);
 }; 
 
 // same as above, but this time adds a story to favorites.
-function addToFavorites(user, story) {
-  user.favorites.push(story);
-  sessionStorage.setItem('favoriteStories', JSON.stringify(user.favorites));
+async function addToFavorites(user, story, instance) {
+  await axios.post(`${BASE_URL}/users/${user.username}/favorites/${story.storyId}`,
+  {token: user.loginToken});
+  instance.favorites.push(story);
 };
 
-// used to run through stories on page. If id matches, story is deleted from the
+// used to run through stories on page. If title matches the input value, story is deleted from the
 // DOM and from the API.
 async function checkIfStoryShouldBeDeleted(itemTitle, story, user) {
 if (itemTitle.val() === story.title) {
@@ -37,8 +35,7 @@ if (itemTitle.val() === story.title) {
         alert('Either no title could be matched, or invalid token.');
         return null;
     }
-    removeFromFavorites(user, story.storyId);
-    };
+  };
 };
 
 // small helper to clear submit form inputs.

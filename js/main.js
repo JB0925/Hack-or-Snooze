@@ -20,6 +20,7 @@ const $submitStoryUrl = $('#story-url');
 const $storyForm = $('#story-form');
 const $deleteForm = $('#delete-form');
 const $navDeleteStory = $('#nav-delete-story');
+const $seeFavoritesDiv = $('#see-favorites');
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After

@@ -90,6 +90,7 @@ async function checkForRememberedUser() {
   currentUser.markAndLoadFavoritesOnPageLoad();
   $('#nav-submit-story').show();
   $('#nav-delete-story').show();
+  $deleteForm.hide();
 }
 
 /** Sync current user information to localStorage.
@@ -115,12 +116,15 @@ function saveUserCredentialsInLocalStorage() {
  * - show the stories list
  * - update nav bar options for logged-in user
  * - generate the user profile part of the page
+ * - hides login and signup forms for logged in users, and displays the "see favorites?" div
  */
 
 function updateUIOnUserLogin() {
   console.debug("updateUIOnUserLogin");
 
   $allStoriesList.show();
-
+  $loginForm.hide();
+  $signupForm.hide();
+  $seeFavoritesDiv.css('visibility', 'visible');
   updateNavOnLogin();
 }

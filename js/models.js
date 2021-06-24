@@ -211,12 +211,10 @@ class User {
       return null;
     }
   }
-  // this function is uses sessionStorage and "currentUser.favorites" to
-  // track a user adding an removing favorites. When a user clicks the checkbox
-  // beside a story, it is added to favorites. Likewise, when it is unchecked, it
-  // is removed from favorites. NOTE: I realized too late the there was an API
-  // endpoint to add/remove user favorites. I added them in (see below), but this
-  // complicated things greatly, and I felt it best to leave them commented out.
+  
+  // This function is used to add or delete a story from user favorites, and 
+  // the "currentUser.favorites" instance. The API calls and array work are 
+  // handled in a helper function.
   async addOrRemoveFavoriteStory() {
     $('#all-stories-list').on('click', async (evt) => {
       const {checkboxId, checkbox, parentId} = setupAddOrRemoveFavorites(evt);
@@ -226,13 +224,9 @@ class User {
         if (story.storyId === parentId) {
           try {
             if (checkbox[0].checked === true) {
-              // await axios.post(`${BASE_URL}/users/${currentUser.username}/favorites/${story.storyId}`,
-              // {token: currentUser.loginToken});
-              addToFavorites(this, story);
+              await addToFavorites(currentUser, story, this);
             } else {
-              // await axios.delete(`${BASE_URL}/users/${currentUser.username}/favorites/${story.storyId}`,
-              // {params: {token: currentUser.loginToken}})
-              removeFromFavorites(this, parentId);
+              await removeFromFavorites(currentUser, story, this, parentId);
             };
           } catch(err) {
             console.log(err);
@@ -247,12 +241,10 @@ class User {
   // on page load.
   markAndLoadFavoritesOnPageLoad() {
     setTimeout(() => {
-      const favoritedStories = JSON.parse(sessionStorage.getItem('favoriteStories'));
-      for (let story of favoritedStories) {
+      for (let story of this.favorites) {
         try {
           const associatedCheckbox = $(`#button${story.storyId}`).eq(0);
           associatedCheckbox[0].checked = true;
-          this.favorites.push(story);
         } catch(err) {
           console.log(err);
         };
