@@ -72,6 +72,7 @@ async function addStoryOnFormSubmission(evt) {
   clearStorySubmissionInputs($submitStoryAuthor, $submitStoryUrl, $submitStoryTitle);
   $allStoriesList.show();
   $('#directions').show();
+  $storyForm.hide();
 };
 
 // allows the user to see a list of their favorite stories
@@ -107,6 +108,7 @@ async function deleteAStory(evt) {
   };
   $titleToDelete.val('');
   $allStoriesList.show();
+  $deleteForm.hide();
   $('#directions').show();
 }
 
