@@ -44,9 +44,13 @@ function updateNavOnLogin() {
 function showAddStoryForm() {
   if (!storyFormToggle) {
     $storyForm.show();
+    $allStoriesList.hide();
+    $('#directions').hide();
     storyFormToggle = true;
   } else {
     $storyForm.hide();
+    $allStoriesList.show();
+    $('#directions').show();
     storyFormToggle = false;
   }
 }
@@ -54,9 +58,13 @@ function showAddStoryForm() {
 function showDeleteStoryForm() {
   if (!deleteStoryToggle) {
     $deleteForm.show();
+    $allStoriesList.hide();
+    $('#directions').hide();
     deleteStoryToggle = true;
   } else {
     $deleteForm.hide();
+    $allStoriesList.show();
+    $('#directions').show();
     deleteStoryToggle = false;
   };
 };

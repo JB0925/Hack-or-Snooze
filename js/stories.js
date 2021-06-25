@@ -70,6 +70,8 @@ async function addStoryOnFormSubmission(evt) {
   let story = generateStoryMarkup((await StoryList.getStories()).stories[0]);
   $allStoriesList.prepend(story);
   clearStorySubmissionInputs($submitStoryAuthor, $submitStoryUrl, $submitStoryTitle);
+  $allStoriesList.show();
+  $('#directions').show();
 };
 
 // allows the user to see a list of their favorite stories
@@ -104,6 +106,8 @@ async function deleteAStory(evt) {
     await checkIfStoryShouldBeDeleted($titleToDelete, story, currentUser);
   };
   $titleToDelete.val('');
+  $allStoriesList.show();
+  $('#directions').show();
 }
 
 // event listeners to handle what happens when the submit, delete, 
