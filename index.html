@@ -67,19 +67,19 @@
 
 </section>
 <section class="container">
-  <form action="#" id="story-form" class="hidden" method="post">
+  <form action="#" id="story-form" class="hidden" method="post" required>
     <h4>Submit a Story</h4>
     <div class="login-input">
       <label for="story-title">Title</label>
-      <input type="text" id="story-title" placeholder="Enter a title">
+      <input type="text" id="story-title" placeholder="Enter a title" required>
     </div>
     <div class="login-input">
       <label for="story-author">Author</label>
-      <input type="text" id="story-author" placeholder="Enter the author">
+      <input type="text" id="story-author" placeholder="Enter the author" required>
     </div>
     <div class="login-input">
       <label for="story-url">URL</label>
-      <input type="text" id="story-url" placeholder="Enter URL here">
+      <input type="url" id="story-url" placeholder="Enter URL here" required>
     </div>
     <button type="submit">Submit</button>
     <hr>
