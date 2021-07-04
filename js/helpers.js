@@ -24,18 +24,18 @@ async function addToFavorites(user, story, instance) {
 // used to run through stories on page. If title matches the input value, story is deleted from the
 // DOM and from the API.
 async function checkIfStoryShouldBeDeleted(itemTitle, story, user) {
-if (itemTitle.val() === story.title) {
-    let liToRemove = $(`#${story.storyId}`);
-    liToRemove.remove();
-    
-    try {
-        await axios.delete(`${BASE_URL}/stories/${story.storyId}`,
-        {params: {token: user.loginToken}});
-    } catch(err) {
-        alert('Either no title could be matched, or invalid token.');
-        return null;
-    }
-  };
+    if (itemTitle.val().normalize() === story.title.normalize()) {
+        let liToRemove = $(`#${story.storyId}`);
+        liToRemove.remove();
+        
+        try {
+            await axios.delete(`${BASE_URL}/stories/${story.storyId}`,
+            {params: {token: user.loginToken}});
+        } catch(err) {
+            alert('Either no title could be matched, or invalid token.');
+            return null;
+        }
+    };
 };
 
 // small helper to clear submit form inputs.

@@ -27,6 +27,7 @@ function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
+  const showOrHide = currentUser ? 'show-boxes' : 'hide-boxes';
   return $(`
       <li id="${story.storyId}">
         <a href="${story.url}" target="a_blank" class="story-link">
@@ -34,7 +35,7 @@ function generateStoryMarkup(story) {
         </a>
         <small class="story-hostname">(${hostName})</small>
         <small class="story-author">by ${story.author}</small>
-        <input type="checkbox"  class="hide-boxes" id="button${story.storyId}">
+        <input type="checkbox"  class="${showOrHide}" id="button${story.storyId}">
         <small class="story-user">posted by ${story.username}</small>
       </li>
     `);
